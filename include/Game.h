@@ -82,11 +82,11 @@ class Game {
         void DebugStats() {
 
             m_deck->DebugStats();
-            for (int i = 0; i < m_numPlayers; i++) {
+            /*for (int i = 0; i < m_numPlayers; i++) {
 
                 m_players[i]->PrintHand();
             }
-            std::cout << std::endl;
+            std::cout << std::endl;*/
         }
 
         void TestDraw() {

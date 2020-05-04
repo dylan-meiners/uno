@@ -6,6 +6,7 @@
 #include "..\include\Colors.h"
 #include "..\include\Deck.h"
 #include "..\include\Artist.h"
+#include "..\include\prompter.h"
 
 using namespace std;
 
@@ -17,16 +18,7 @@ int main() {
 
     std::srand(time(0));
 
-    system("CLS");
-    SwitchToColor("reset");
-
-    PrintBigLetters("welcome to uno");
-
-    cout << RED     << "---------------------------"
-         << GREEN   << "---------------------------"
-         << BLUE    << "---------------------------"
-         << YELLOW  << "----------------------------"
-         << RESET << endl << endl;
+    ClearAndPrintTitle();
 
     if (!game.GetPlayers()) {
 
@@ -37,7 +29,14 @@ int main() {
         return EXIT_FAILURE;
     }
 
-    game.TestTakeTurn();
+    game.ShuffleDeck();
+    //game.DebugStats();
+
+    bool result = false;
+    std::cout << "Would you like to start the game?" << std::endl;
+    result = PromptTF();
+
+    if (result) game.TestTakeTurn();
     
     return 0;
 }

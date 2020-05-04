@@ -216,4 +216,18 @@ void PrintCardsOverlapped(int cards) {
     cout << A_CARD_END << endl;
 }
 
+void ClearAndPrintTitle() {
+
+    system("CLS");
+    SwitchToColor("reset");
+
+    PrintBigLetters("welcome to uno");
+
+    cout << RED     << "---------------------------"
+         << GREEN   << "---------------------------"
+         << BLUE    << "---------------------------"
+         << YELLOW  << "----------------------------"
+         << RESET << endl << endl;
+}
+
 #endif

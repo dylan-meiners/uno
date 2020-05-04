@@ -39,4 +39,13 @@ int prompt(std::string * choices, std::string * inputOptions, int numOfChoices) 
     return choice;
 }
 
+bool PromptTF() {
+
+    std::string choices[] = {"Yes", "No"};
+    std::string inputOptions[] = {"1", "2"};
+    int result = prompt(choices, inputOptions, 2);
+    if (result == 0) return true;
+    else return false;
+}
+
 #endif
