@@ -21,9 +21,9 @@ class Game {
         bool GetPlayers() {
 
             int players;
-            cout << "How many players?" << endl;
+            cout << "How many players? (2 - 10)" << endl;
             cin >> players;
-            if (players <= 0) {
+            if (players < 2 || players > 10) {
 
                 cout << "What part of " << RED << "\"How many players\"" << RESET << " did you not understand?" << endl << endl;
                 return false;
@@ -77,6 +77,18 @@ class Game {
         void ShuffleDeck() {
 
             m_deck->Shuffle();
+        }
+
+        void DealStartingHand() {
+
+            for (int i = 0; i < 7; i++) {
+
+                for (int i = 0; i < m_numPlayers; i++) {
+
+                    m_players[i]->Draw();
+                }
+            }
+            m_deck->PlayFirstCard();
         }
 
         void DebugStats() {

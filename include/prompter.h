@@ -15,7 +15,6 @@ int prompt(std::string * choices, std::string * inputOptions, int numOfChoices) 
     bool valid = false;
     //apparently there is a newline character
     //messing up the getline below :( so get rid of it
-    std::cin.get();
     while (!valid) {
 
         std::cout << ">> " << GREEN;

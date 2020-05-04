@@ -32,24 +32,23 @@ class Player {
 
         void PrintHand() {
 
-            std::cout << m_name << "'s hand: " << std::endl;
-            for (int i = 0; i < m_cards.size(); i++) {
+            int cardsSize = m_cards.size();
+            std::cout << m_name << "'s hand\n" << "-------" << std::endl;
+            for (int i = 0; i <cardsSize; i++) {
 
                 std::cout << m_deck->CardToString(m_cards[i]) << std::endl;
+                if (i != cardsSize - 1) std::cout << std::endl;
             }
-            std::cout << std::endl;
+            std::cout << "-------" << std::endl;
         }
 
         void TakeTurn() {
 
-            Draw();
-            Draw();
-            Draw();
-
+            m_deck->PrintPlayPileCard();
             PrintHand();
 
-            std::cout << RED << m_name << "'s" << GREEN << " trun:" << std::endl;
-            std::string choices[] = {"Play selected card", "Select a different card"};
+            std::cout << RED << m_name << "'s" << GREEN << " turn:" << std::endl;
+            std::string choices[] = {"Play the selected card", "Select a different card"};
             std::string inputChoices[] = {"1", "2"};
             int answer = prompt(choices, inputChoices, 2);
             std::cout << "You have selected: " << RED << choices[answer] << RESET << std::endl;

@@ -313,7 +313,7 @@ Card cardMap[108] =    {kRed_Zero,
             }
         }
 
-        std::string CardToString(Card card) {
+        std::string CardToString(Card card, std::string prefix = "") {
 
             std::string toReturn;
             Color colorOfCard = GetColorFromCard(card);
@@ -322,9 +322,13 @@ Card cardMap[108] =    {kRed_Zero,
             else if (colorOfCard == kGreen) toReturn += GREEN;
             else if (colorOfCard == kYellow) toReturn += YELLOW;
             else toReturn += RESET;
-
-            toReturn += "|-----|\n|     |\n";
             std::string cardIdent = GetCardIdentifier(card);
+
+            toReturn += prefix;
+            toReturn += "|-----|\n";
+            toReturn += prefix;
+            toReturn += "|     |\n";
+            toReturn += prefix;
             toReturn += "|  ";
             toReturn += cardIdent;
             if (cardIdent.size() == 1) {
@@ -335,7 +339,10 @@ Card cardMap[108] =    {kRed_Zero,
 
                 toReturn += " |\n";
             }
-            toReturn += "|     |\n|-----|";
+            toReturn += prefix;
+            toReturn += "|     |\n";
+            toReturn += prefix;
+            toReturn += "|-----|";
 
             toReturn += RESET;
             return toReturn;
@@ -372,9 +379,31 @@ Card cardMap[108] =    {kRed_Zero,
             return toReturn;
         }
 
-        void PlayCard(Card cardToPlay) {
+        bool PlayCard(Card cardToPlay) {
 
-            m_playPile.push_back(cardToPlay);
+            //if the color and the number are different, AND the card to play
+            //is not a wild or a draw four
+            if ((GetCardIdentifier(m_playPile.back()) != GetCardIdentifier(cardToPlay) &&
+                GetColorFromCard(m_playPile.back()) != GetColorFromCard(cardToPlay)) &&
+                cardToPlay != kWild || cardToPlay != kWildDrawFour) return false;
+            else {
+                
+                m_playPile.push_back(cardToPlay);
+                return true;
+            }
+        }
+
+        void PlayFirstCard() {
+
+            m_playPile.push_back(Draw());
+        }
+
+        void PrintPlayPileCard() {
+
+            std::cout << "Play pile card\n"
+                      << "--------------\n"
+                      << CardToString(m_playPile.back(), "   ")
+                      << "\n--------------" << std::endl << std::endl;
         }
 
         void DebugStats() {

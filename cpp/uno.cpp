@@ -28,15 +28,23 @@ int main() {
 
         return EXIT_FAILURE;
     }
+    //IDK why this is here, but the next prompt call fails if
+    //its not here, so ¯\_(ツ)_/¯
+    std::cin.get(); 
 
     game.ShuffleDeck();
+    game.DealStartingHand();
     //game.DebugStats();
 
     bool result = false;
     std::cout << "Would you like to start the game?" << std::endl;
     result = PromptTF();
 
-    if (result) game.TestTakeTurn();
+    if (result) {
+        
+        ClearAndPrintTitle();
+        game.TestTakeTurn();
+    }
     
     return 0;
 }
