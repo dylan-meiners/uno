@@ -2,10 +2,10 @@
 #include <Windows.h>
 #include <cstdlib>
 
-#include "Game.h"
-#include "Colors.h"
-#include "Deck.h"
-#include "Artist.h"
+#include "..\include\Game.h"
+#include "..\include\Colors.h"
+#include "..\include\Deck.h"
+#include "..\include\Artist.h"
 
 using namespace std;
 

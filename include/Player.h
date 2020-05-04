@@ -6,6 +6,7 @@
 
 #include "Deck.h"
 #include "Colors.h"
+#include "prompter.h"
 
 class Player {
 
@@ -15,6 +16,7 @@ class Player {
 
             m_name = nameToSet;
             m_deck = deckToSet;
+            indexOfCardToPlay = 0;
         }
 
         void Draw() {
@@ -41,20 +43,10 @@ class Player {
         void TakeTurn() {
 
             std::cout << RED << m_name << "'s" << GREEN << " trun:" << std::endl;
-            std::cout << YELLOW << "Choose an action:" << std::endl;
-            std::cout << GREEN << "1: " << RESET << "Play selected card" << std::endl;
-            std::cout << GREEN << "2: " << RESET << "Select a different card" << std::endl;
-            std::cout << std::endl;
-            std::string answer;
-            while(answer != "0" && answer != "1") {
-                
-                std::cout << ">> ";
-                std::getline(std::cin, answer);
-            }
-            if (answer == "0") {
-
-                
-            }
+            std::string choices[] = {"Play selected card", "Select a different card"};
+            std::string inputChoices[] = {"1", "2"};
+            int answer = prompt(choices, inputChoices, 2);
+            std::cout << "You have selected: " << RED << choices[answer] << RESET << std::endl;
         }
     
     private:
@@ -62,6 +54,7 @@ class Player {
         std::string m_name;
         Deck *m_deck;
         std::vector<Card> m_cards;
+        int indexOfCardToPlay;
 };
 
 /*
