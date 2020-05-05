@@ -13,8 +13,6 @@ int prompt(std::string * choices, std::string * inputOptions, int numOfChoices) 
     std::string answer = "";
 
     bool valid = false;
-    //apparently there is a newline character
-    //messing up the getline below :( so get rid of it
     while (!valid) {
 
         std::cout << ">> " << GREEN;
@@ -22,7 +20,7 @@ int prompt(std::string * choices, std::string * inputOptions, int numOfChoices) 
         std::cout << RESET;
 
         //See if the answer is a valid choice ("1", "2", "3", "4", etc...)
-        for (int i = 0; i <= numOfChoices; i++) {
+        for (int i = 0; i < numOfChoices; i++) {
 
             if (answer == inputOptions[i]) {
 
@@ -45,6 +43,13 @@ bool PromptTF() {
     int result = prompt(choices, inputOptions, 2);
     if (result == 0) return true;
     else return false;
+}
+
+void PromptOK() {
+
+    std::string choices[] = {"OK"};
+    std::string inputOptions[] = {"1"};
+    prompt(choices, inputOptions, 1);
 }
 
 #endif

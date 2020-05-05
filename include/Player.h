@@ -25,13 +25,19 @@ class Player {
             m_cards.push_back(m_deck->Draw());
         }
 
-        void PlayCard() {
+        bool PlayCard() {
 
-            while (!m_deck->PlayCard(m_cards[indexOfCardToPlay])) {
-
-
+            if (!m_deck->PlayCard(m_cards[indexOfCardToPlay])) {
+            
+                std::cout << RED << "Could not play the selected card!" << RESET << std::endl << std::endl;
+                PromptOK();
+                return false;
             }
-            m_cards.pop_back();
+            else {
+
+                m_cards.pop_back();
+                return true;
+            }
         }
 
         void PrintHand(bool showIndex = false) {
@@ -78,14 +84,36 @@ class Player {
             std::cout << RED << "\nCurrent selected card is " << YELLOW << indexOfCardToPlay + 1 << RESET << std::endl << std::endl;
 
             std::cout << RED << m_name << "'s" << GREEN << " turn:" << std::endl;
-            std::string choices[] = {"Play the selected card", "Select a different card"};
-            std::string inputChoices[] = {"1", "2"};
+            std::string choices[] = {"Play the selected card", "Select a different card", "Draw card"};
+            std::string inputChoices[] = {"1", "2", "3"};
             int answer = prompt(choices, inputChoices, 2);
-            std::cout << "You have selected: " << RED << choices[answer] << RESET << std::endl;
-            if (answer == 1) {
+            //std::cout << "You have selected: " << RED << choices[answer] << RESET << std::endl << std::endl;
+            if (answer == 0) {
+
+                while (!PlayCard()) {
+                    
+                    std::string choicesFailed[] = {"Select a different card", "Draw a card"};
+                    std::string optionsFailed[] = {"1", "2"};
+                    int result = prompt(choicesFailed, optionsFailed, 2);
+                    if (result == 0) {
+
+                        SelectCard();
+                    }
+                    else {
+
+                        Draw();
+                        break;
+                    }
+                }
+            }
+            else if (answer == 1) {
                 
                 SelectCard();
                 TakeTurn();
+            }
+            else {
+
+                Draw();
             }
         }
 
@@ -94,6 +122,7 @@ class Player {
             char buffer[3];
             std::string choices[m_cards.size()];
             ClearAndPrintTitle();
+            m_deck->PrintPlayPileCard();
             std::cout << GREEN << "Card selection\n" << RESET << std::endl;
             PrintHand(true);
             std::cout << "Select a card" << std::endl;
