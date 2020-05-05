@@ -313,22 +313,33 @@ Card cardMap[108] =    {kRed_Zero,
             }
         }
 
-        std::string CardToString(Card card, std::string prefix = "") {
+        std::string CardToString(Card card, std::string prefix = "", std::string midfix = "") {
 
             std::string toReturn;
             Color colorOfCard = GetColorFromCard(card);
-            if (colorOfCard == kRed) toReturn += RED;
-            else if (colorOfCard == kBlue) toReturn += BLUE;
-            else if (colorOfCard == kGreen) toReturn += GREEN;
-            else if (colorOfCard == kYellow) toReturn += YELLOW;
-            else toReturn += RESET;
+            std::string colorStr = "";
+            if (colorOfCard == kRed) colorStr = RED;
+            else if (colorOfCard == kBlue) colorStr = BLUE;
+            else if (colorOfCard == kGreen) colorStr = GREEN;
+            else if (colorOfCard == kYellow) colorStr = YELLOW;
+            else colorStr = RESET;
             std::string cardIdent = GetCardIdentifier(card);
 
+            toReturn += colorStr;
             toReturn += prefix;
             toReturn += "|-----|\n";
             toReturn += prefix;
             toReturn += "|     |\n";
-            toReturn += prefix;
+            if (midfix != "") {
+                
+                toReturn += RESET;
+                toReturn += midfix;
+                toReturn += colorStr;
+            }
+            else {
+
+                toReturn += prefix;
+            }
             toReturn += "|  ";
             toReturn += cardIdent;
             if (cardIdent.size() == 1) {
